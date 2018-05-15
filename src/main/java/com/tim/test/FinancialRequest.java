@@ -1,9 +1,13 @@
 package com.tim.test;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tim.test.dtos.FinancialData;
 import lombok.Data;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 @Data
@@ -24,7 +28,7 @@ public class FinancialRequest implements Callable<FinancialData> {
     public FinancialData call() throws Exception {
         String response = get("MSFT");
 
-        System.out.println(response);
+
 
         return null;
     }
@@ -35,8 +39,14 @@ public class FinancialRequest implements Callable<FinancialData> {
         String url = urlPattern.replace("{symbol}", symbol);
         System.out.println(url);
 
-        ResponseEntity<String> responseEntity = rest.exchange(url, HttpMethod.GET, requestEntity, String.class);
-        this.setStatus(responseEntity.getStatusCode());
-        return responseEntity.getBody();
+
+        try{
+            FinancialData mapped = rest.getForObject(url, FinancialData.class);
+            int a= 2;
+        }catch (Exception e){
+            throw e;
+        }
+
+        return null;
     }
 }

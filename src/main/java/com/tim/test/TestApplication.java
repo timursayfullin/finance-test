@@ -1,15 +1,13 @@
 package com.tim.test;
 
+import com.tim.test.dtos.FinancialData;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 
 @SpringBootApplication
 public class TestApplication implements CommandLineRunner {
@@ -24,12 +22,10 @@ public class TestApplication implements CommandLineRunner {
 
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-        Collection<Future<?>> futures = new LinkedList<>();
-        futures.add(executorService.submit(new FinancialRequest()));
-        for (Future<?> future : futures) {
-            future.get();
-        }
+        List<Callable<FinancialData>> tasks = new ArrayList<>();
+        tasks.add(new FinancialRequest());
 
-        executorService.shutdownNow();
+        executorService.invokeAll(tasks);
+        executorService.shutdown();
     }
 }
