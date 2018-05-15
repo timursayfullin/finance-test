@@ -1,9 +1,10 @@
-package com.tim.test.dtos;
+package com.tim.test.AlphaVantage.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.tim.test.utils.LocalDateTimeDeserializer;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class MetaData {
     @JsonProperty("1. Information")
@@ -13,8 +14,8 @@ public class MetaData {
     String symbol;
 
     @JsonProperty("3. Last Refreshed")
-    @JsonSerialize(using = CustomDateTimeSerializer.class)
-    LocalDateTime lastRefreshed;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    LocalDate lastRefreshed;
 
     @JsonProperty("4. Output Size")
     String outputSize;

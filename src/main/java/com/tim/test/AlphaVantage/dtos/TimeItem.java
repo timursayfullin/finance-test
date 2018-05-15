@@ -1,4 +1,4 @@
-package com.tim.test.dtos;
+package com.tim.test.AlphaVantage.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

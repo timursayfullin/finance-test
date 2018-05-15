@@ -1,11 +1,10 @@
-package com.tim.test.dtos;
+package com.tim.test.AlphaVantage.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDate;
 import java.util.Map;
 
-public class FinancialData {
+public class AlphaVantageData {
     @JsonProperty("Meta Data")
     MetaData metaData;
 
